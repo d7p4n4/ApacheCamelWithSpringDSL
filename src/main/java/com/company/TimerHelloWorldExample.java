@@ -6,20 +6,15 @@ import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-public class SimpleHelloWorldExample {
+public class TimerHelloWorldExample {
 
     public static void main(String[] args) throws Exception {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(
-                "SimpleHelloWorldExample.xml");
+                "TimerHelloWorldExample.xml");
         CamelContext camelContext = SpringCamelContext.springCamelContext(appContext, false);
         try {
             camelContext.start();
             ProducerTemplate orderProducerTemplate = camelContext.createProducerTemplate();
-            //InputStream orderInputStream = new FileInputStream(ClassLoader.getSystemClassLoader()
-            //        .getResource("order.xml").getFile());
 
             orderProducerTemplate.sendBody("direct:DistributeOrderXML", "hello world");
         } finally {
